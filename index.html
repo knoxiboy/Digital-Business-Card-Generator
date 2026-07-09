@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Digital Business Card Generator - Create professional business cards instantly">
+  <meta name="theme-color" content="#2c3e50">
+  <title>Digital Business Card Generator</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>Digital Business Card Generator</h1>
+      <p>Create professional business cards instantly</p>
+    </header>
+
+    <main class="main-content">
+      <!-- Form Section -->
+      <section class="form-section">
+        <h2>Your Details</h2>
+        
+        <form id="cardForm" class="card-form">
+          <!-- Name -->
+          <div class="form-group">
+            <label for="fullName">Full Name *</label>
+            <input type="text" id="fullName" name="fullName" placeholder="John Doe" required>
+          </div>
+
+          <!-- Title/Position -->
+          <div class="form-group">
+            <label for="title">Title/Position *</label>
+            <input type="text" id="title" name="title" placeholder="Software Engineer" required>
+          </div>
+
+          <!-- Company -->
+          <div class="form-group">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" placeholder="Acme Corporation">
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" placeholder="john@example.com" required>
+          </div>
+
+          <!-- Phone -->
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567">
+          </div>
+
+          <!-- Website -->
+          <div class="form-group">
+            <label for="website">Website</label>
+            <input type="url" id="website" name="website" placeholder="https://example.com">
+          </div>
+
+          <!-- Bio/Description -->
+          <div class="form-group">
+            <label for="bio">Bio/Description</label>
+            <textarea id="bio" name="bio" placeholder="Brief description about yourself" rows="3"></textarea>
+          </div>
+
+          <!-- Profile Image -->
+          <div class="form-group">
+            <label for="profileImage">Profile Image</label>
+            <input type="file" id="profileImage" name="profileImage" accept="image/*">
+            <small>Recommended: Square image, 200x200px minimum</small>
+          </div>
+
+          <!-- Social Links -->
+          <div class="form-group">
+            <label>Social Links</label>
+            <div class="social-inputs">
+              <div class="social-input">
+                <span class="social-icon">𝕏</span>
+                <input type="url" id="twitter" name="twitter" placeholder="https://twitter.com/username">
+              </div>
+              <div class="social-input">
+                <span class="social-icon">in</span>
+                <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/username">
+              </div>
+              <div class="social-input">
+                <span class="social-icon">f</span>
+                <input type="url" id="facebook" name="facebook" placeholder="https://facebook.com/username">
+              </div>
+              <div class="social-input">
+                <span class="social-icon">📷</span>
+                <input type="url" id="instagram" name="instagram" placeholder="https://instagram.com/username">
+              </div>
+              <div class="social-input">
+                <span class="social-icon">🔗</span>
+                <input type="url" id="github" name="github" placeholder="https://github.com/username">
+              </div>
+            </div>
+          </div>
+
+          <!-- Template Selection -->
+          <div class="form-group">
+            <label for="template">Card Template *</label>
+            <select id="template" name="template" required>
+              <option value="modern">Modern Minimal</option>
+              <option value="professional">Professional Classic</option>
+              <option value="creative">Creative Colorful</option>
+              <option value="elegant">Elegant Dark</option>
+            </select>
+          </div>
+
+          <!-- Primary Color -->
+          <div class="form-group">
+            <label for="primaryColor">Primary Color</label>
+            <input type="color" id="primaryColor" name="primaryColor" value="#2c3e50">
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary">Generate Card</button>
+        </form>
+      </section>
+
+      <!-- Preview Section -->
+      <section class="preview-section">
+        <h2>Preview</h2>
+        
+        <div class="preview-container">
+          <div id="cardPreview" class="card-preview modern">
+            <!-- Card content generated by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Download Section -->
+        <div class="download-section">
+          <button id="downloadImage" class="btn btn-secondary" disabled>
+            📥 Download as Image
+          </button>
+          <button id="downloadPDF" class="btn btn-secondary" disabled>
+            📄 Download as PDF
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2024 Digital Business Card Generator. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/card-generator.js"></script>
+  <script src="js/template-manager.js"></script>
+  <script src="js/form-handler.js"></script>
+  <script src="js/export-manager.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- External Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</body>
+</html>
