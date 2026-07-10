@@ -7,7 +7,7 @@ const CardGenerator = {
    * Generate card HTML
    */
   generateCardHTML(cardData, template, primaryColor) {
-    const { fullName, title, company, email, phone, website, bio, profileImage, socialLinks } = cardData;
+    const { fullName, title, company, email, phone, website, profileImage, socialLinks } = cardData;
 
     let html = `
       <div class="card-header">
@@ -143,7 +143,6 @@ const CardGenerator = {
       email: document.getElementById('email').value || '',
       phone: document.getElementById('phone').value || '',
       website: document.getElementById('website').value || '',
-      bio: document.getElementById('bio').value || '',
       profileImage: document.getElementById('profileImage').dataset.base64 || '',
       socialLinks: {
         twitter: document.getElementById('twitter').value || '',

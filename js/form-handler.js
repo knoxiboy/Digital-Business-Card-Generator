@@ -141,7 +141,6 @@ const FormHandler = {
       email: document.getElementById('email').value || '',
       phone: document.getElementById('phone').value || '',
       website: document.getElementById('website').value || '',
-      bio: document.getElementById('bio').value || '',
       profileImage: document.getElementById('profileImage').dataset.base64 || '',
       socialLinks: {
         twitter: document.getElementById('twitter').value || '',
@@ -174,7 +173,6 @@ const FormHandler = {
     document.getElementById('email').value = savedData.email || '';
     document.getElementById('phone').value = savedData.phone || '';
     document.getElementById('website').value = savedData.website || '';
-    document.getElementById('bio').value = savedData.bio || '';
 
     if (savedData.profileImage) {
       document.getElementById('profileImage').dataset.base64 = savedData.profileImage;

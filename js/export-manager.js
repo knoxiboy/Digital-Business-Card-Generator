@@ -25,16 +25,18 @@ const ExportManager = {
 
       // Use html2canvas to capture card
       const canvas = await html2canvas(cardPreview, {
-        scale: 2,
-        backgroundColor: null,
+        scale: 3,
+        backgroundColor: '#000000',
         useCORS: true,
         allowTaint: true,
-        logging: false
+        logging: false,
+        imageTimeout: 0,
+        removeContainer: true
       });
 
       // Create download link
       const link = document.createElement('a');
-      link.href = canvas.toDataURL('image/png');
+      link.href = canvas.toDataURL('image/png', 1.0);
       link.download = `${cardData.fullName}-business-card.png`;
       document.body.appendChild(link);
       link.click();
@@ -65,11 +67,13 @@ const ExportManager = {
 
       // Use html2canvas to capture card
       const canvas = await html2canvas(cardPreview, {
-        scale: 2,
-        backgroundColor: null,
+        scale: 3,
+        backgroundColor: '#000000',
         useCORS: true,
         allowTaint: true,
-        logging: false
+        logging: false,
+        imageTimeout: 0,
+        removeContainer: true
       });
 
       // Create PDF
@@ -81,7 +85,7 @@ const ExportManager = {
       });
 
       // Get canvas image
-      const imgData = canvas.toDataURL('image/png');
+      const imgData = canvas.toDataURL('image/png', 1.0);
 
       // Calculate dimensions to fit in A6
       const pageWidth = pdf.internal.pageSize.getWidth();
@@ -214,7 +218,6 @@ const ExportManager = {
       document.getElementById('email').value = cardData.email || '';
       document.getElementById('phone').value = cardData.phone || '';
       document.getElementById('website').value = cardData.website || '';
-      document.getElementById('bio').value = cardData.bio || '';
 
       if (cardData.profileImage) {
         document.getElementById('profileImage').dataset.base64 = cardData.profileImage;
