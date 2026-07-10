@@ -15,7 +15,7 @@ class BusinessCardApp {
       console.log('Initializing Digital Business Card Generator...');
 
       // Check if required libraries are loaded
-      if (!window.html2canvas || !window.jspdf) {
+      if (!window.domtoimage || !window.jspdf) {
         console.warn('External libraries not yet loaded, waiting...');
         setTimeout(() => this.initialize(), 100);
         return;

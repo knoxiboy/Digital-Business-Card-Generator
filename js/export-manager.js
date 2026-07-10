@@ -23,25 +23,22 @@ const ExportManager = {
       const cardPreview = document.getElementById('cardPreview');
       const cardData = FormHandler.getFormData();
 
-      // Get the computed background style
-      const computedStyle = window.getComputedStyle(cardPreview);
-      const originalBackground = computedStyle.background;
-
-      // Use html2canvas to capture card
-      const canvas = await html2canvas(cardPreview, {
-        scale: 3,
-        backgroundColor: null,
-        useCORS: true,
-        allowTaint: true,
-        logging: false,
-        imageTimeout: 0,
-        removeContainer: true,
-        foreignObjectRendering: false
+      // Use dom-to-image to capture card (better gradient support)
+      const dataUrl = await domtoimage.toPng(cardPreview, {
+        quality: 1.0,
+        width: cardPreview.offsetWidth * 3,
+        height: cardPreview.offsetHeight * 3,
+        style: {
+          transform: 'scale(3)',
+          transformOrigin: 'top left',
+          width: cardPreview.offsetWidth + 'px',
+          height: cardPreview.offsetHeight + 'px'
+        }
       });
 
       // Create download link
       const link = document.createElement('a');
-      link.href = canvas.toDataURL('image/png', 1.0);
+      link.href = dataUrl;
       link.download = `${cardData.fullName}-business-card.png`;
       document.body.appendChild(link);
       link.click();
@@ -70,16 +67,17 @@ const ExportManager = {
       const cardPreview = document.getElementById('cardPreview');
       const cardData = FormHandler.getFormData();
 
-      // Use html2canvas to capture card
-      const canvas = await html2canvas(cardPreview, {
-        scale: 3,
-        backgroundColor: null,
-        useCORS: true,
-        allowTaint: true,
-        logging: false,
-        imageTimeout: 0,
-        removeContainer: true,
-        foreignObjectRendering: false
+      // Use dom-to-image to capture card (better gradient support)
+      const dataUrl = await domtoimage.toPng(cardPreview, {
+        quality: 1.0,
+        width: cardPreview.offsetWidth * 3,
+        height: cardPreview.offsetHeight * 3,
+        style: {
+          transform: 'scale(3)',
+          transformOrigin: 'top left',
+          width: cardPreview.offsetWidth + 'px',
+          height: cardPreview.offsetHeight + 'px'
+        }
       });
 
       // Create PDF
@@ -90,21 +88,18 @@ const ExportManager = {
         format: 'A6' // Business card size
       });
 
-      // Get canvas image
-      const imgData = canvas.toDataURL('image/png', 1.0);
-
       // Calculate dimensions to fit in A6
       const pageWidth = pdf.internal.pageSize.getWidth();
       const pageHeight = pdf.internal.pageSize.getHeight();
       
       const imgWidth = 105; // 105mm for A6 landscape
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const imgHeight = (cardPreview.offsetHeight * imgWidth) / cardPreview.offsetWidth;
 
       // Center the image
       const x = (pageWidth - imgWidth) / 2;
       const y = (pageHeight - imgHeight) / 2;
 
-      pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
+      pdf.addImage(dataUrl, 'PNG', x, y, imgWidth, imgHeight);
 
       // Save PDF
       pdf.save(`${cardData.fullName}-business-card.pdf`);
