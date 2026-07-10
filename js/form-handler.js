@@ -95,7 +95,13 @@ const FormHandler = {
    */
   handleTemplateChange(e) {
     const templateName = document.getElementById('template').value;
-    const primaryColor = document.getElementById('primaryColor').value;
+    const template = TemplateManager.getTemplate(templateName);
+    
+    // Reset primary color to template default
+    const primaryColorInput = document.getElementById('primaryColor');
+    primaryColorInput.value = template.defaultColor;
+    
+    const primaryColor = template.defaultColor;
 
     TemplateManager.applyTemplate(templateName, primaryColor);
     TemplateManager.saveTemplatePreference(templateName);

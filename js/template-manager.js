@@ -28,14 +28,17 @@ const TemplateManager = {
     const template = this.getTemplate(templateName);
 
     // Remove all template classes
-    preview.className = preview.className.replace(/\s+template-\w+/g, '');
-    
-    // Add new template class
-    preview.classList.remove(...Array.from(preview.classList).filter(c => c !== 'card-preview'));
-    preview.classList.add('card-preview', template.className);
+    preview.className = 'card-preview ' + template.className;
 
-    // Apply colors based on template
-    this.applyTemplateColors(preview, templateName, primaryColor);
+    // Apply primary color
+    if (primaryColor && primaryColor !== template.defaultColor) {
+      const color2 = CardGenerator.adjustColor(primaryColor, -30);
+      preview.style.background = `linear-gradient(135deg, ${primaryColor} 0%, ${color2} 100%)`;
+    } else {
+      // Use default template color
+      const color2 = CardGenerator.adjustColor(template.defaultColor, -30);
+      preview.style.background = `linear-gradient(135deg, ${template.defaultColor} 0%, ${color2} 100%)`;
+    }
 
     return preview;
   },
@@ -46,28 +49,10 @@ const TemplateManager = {
   applyTemplateColors(element, templateName, primaryColor) {
     const template = this.getTemplate(templateName);
 
-    switch (templateName) {
-      case 'modern':
-        element.style.background = `linear-gradient(135deg, ${template.colors[0]} 0%, ${template.colors[1]} 100%)`;
-        break;
-      
-      case 'professional':
-        element.style.background = `linear-gradient(180deg, ${template.colors[0]} 0%, ${template.colors[1]} 100%)`;
-        break;
-      
-      case 'creative':
-        const color1 = primaryColor;
-        const color2 = CardGenerator.adjustColor(primaryColor, -20);
-        element.style.background = `linear-gradient(135deg, ${color1} 0%, ${color2} 100%)`;
-        break;
-      
-      case 'elegant':
-        element.style.background = `linear-gradient(135deg, ${template.colors[0]} 0%, ${template.colors[1]} 100%)`;
-        break;
-      
-      default:
-        element.style.background = '';
-    }
+    // Apply primary color gradient
+    const color1 = primaryColor || template.defaultColor;
+    const color2 = CardGenerator.adjustColor(color1, -30);
+    element.style.background = `linear-gradient(135deg, ${color1} 0%, ${color2} 100%)`;
   },
 
   /**

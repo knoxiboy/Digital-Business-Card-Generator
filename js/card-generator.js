@@ -6,7 +6,7 @@ const CardGenerator = {
   /**
    * Generate card HTML
    */
-  generateCardHTML(cardData) {
+  generateCardHTML(cardData, template, primaryColor) {
     const { fullName, title, company, email, phone, website, bio, profileImage, socialLinks } = cardData;
 
     let html = `
@@ -16,6 +16,10 @@ const CardGenerator = {
     // Add profile image if available
     if (profileImage) {
       html += `<img src="${profileImage}" alt="${fullName}" class="card-avatar">`;
+    } else {
+      // Show initials if no image
+      const initials = Utils.getInitials(fullName || 'NA');
+      html += `<div class="card-avatar card-avatar-initials">${initials}</div>`;
     }
 
     html += `
@@ -56,22 +60,26 @@ const CardGenerator = {
 
     html += '</div>';
 
-    // Add social links
-    if (Object.values(socialLinks).some(link => link)) {
+    // Add social links - FIXED: Now they will show
+    const hasSocialLinks = Object.values(socialLinks).some(link => link && Utils.isValidUrl(link));
+    
+    if (hasSocialLinks) {
       html += '<div class="card-social">';
 
       Object.entries(socialLinks).forEach(([platform, url]) => {
         if (url && Utils.isValidUrl(url)) {
           const platformConfig = CONFIG.SOCIAL_PLATFORMS[platform];
-          html += `
-            <a href="${Utils.escapeHtml(url)}" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               class="social-link" 
-               title="${platformConfig.name}">
-              ${platformConfig.icon}
-            </a>
-          `;
+          if (platformConfig) {
+            html += `
+              <a href="${Utils.escapeHtml(url)}" 
+                 target="_blank" 
+                 rel="noopener noreferrer"
+                 class="social-link social-link-${platform}" 
+                 title="${platformConfig.name}">
+                ${platformConfig.icon}
+              </a>
+            `;
+          }
         }
       });
 
@@ -90,15 +98,20 @@ const CardGenerator = {
     // Update template class
     preview.className = `card-preview ${template}`;
 
-    // Apply custom color for creative template
-    if (template === 'creative') {
-      const gradientColor1 = primaryColor;
-      const gradientColor2 = this.adjustColor(primaryColor, -20);
-      preview.style.background = `linear-gradient(135deg, ${gradientColor1} 0%, ${gradientColor2} 100%)`;
+    // Apply primary color dynamically
+    if (primaryColor && primaryColor !== '#2c3e50') {
+      const color2 = this.adjustColor(primaryColor, -30);
+      preview.style.setProperty('--primary-color', primaryColor);
+      preview.style.setProperty('--secondary-color', color2);
+      preview.style.background = `linear-gradient(135deg, ${primaryColor} 0%, ${color2} 100%)`;
+    } else {
+      preview.style.removeProperty('--primary-color');
+      preview.style.removeProperty('--secondary-color');
+      preview.style.background = '';
     }
 
     // Generate and update card HTML
-    const cardHTML = this.generateCardHTML(cardData);
+    const cardHTML = this.generateCardHTML(cardData, template, primaryColor);
     preview.innerHTML = cardHTML;
 
     return preview;

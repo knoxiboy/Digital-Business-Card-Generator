@@ -5,8 +5,8 @@
 const CONFIG = {
   // Default values
   DEFAULTS: {
-    template: 'modern',
-    primaryColor: '#2c3e50'
+    template: 'centered',
+    primaryColor: '#1a5a7b'
   },
 
   // Card dimensions (in pixels)
@@ -16,37 +16,45 @@ const CONFIG = {
     dpi: 300
   },
 
-  // Templates configuration
+  // Templates configuration - 4 distinct layouts that work with any color
   TEMPLATES: {
-    modern: {
-      name: 'Modern Minimal',
-      className: 'modern',
-      colors: ['#667eea', '#764ba2']
+    minimal: {
+      name: 'Minimal White',
+      className: 'minimal',
+      layout: 'minimal',
+      defaultColor: '#ffffff',
+      description: 'Minimalist white design with black text'
     },
-    professional: {
-      name: 'Professional Classic',
-      className: 'professional',
-      colors: ['#2c3e50', '#34495e']
+    split: {
+      name: 'Split Design',
+      className: 'split',
+      layout: 'split',
+      defaultColor: '#2c3e50',
+      description: 'Vertical split with sidebar accent'
+    },
+    centered: {
+      name: 'Centered Classic',
+      className: 'centered',
+      layout: 'centered',
+      defaultColor: '#1a5a7b',
+      description: 'Classic centered layout with circular avatar'
     },
     creative: {
-      name: 'Creative Colorful',
+      name: 'Creative Bold',
       className: 'creative',
-      colors: ['#f093fb', '#f5576c']
-    },
-    elegant: {
-      name: 'Elegant Dark',
-      className: 'elegant',
-      colors: ['#1a1a2e', '#16213e']
+      layout: 'creative',
+      defaultColor: '#2385af',
+      description: 'Bold asymmetric design with floating elements'
     }
   },
 
   // Social media platforms
   SOCIAL_PLATFORMS: {
     twitter: { icon: '𝕏', name: 'Twitter', color: '#1DA1F2' },
-    linkedin: { icon: 'in', name: 'LinkedIn', color: '#0A66C2' },
-    facebook: { icon: 'f', name: 'Facebook', color: '#1877F2' },
-    instagram: { icon: '📷', name: 'Instagram', color: '#E1306C' },
-    github: { icon: '⚙', name: 'GitHub', color: '#333333' }
+    linkedin: { icon: '𝗶𝗻', name: 'LinkedIn', color: '#0A66C2' },
+    facebook: { icon: '𝗳', name: 'Facebook', color: '#1877F2' },
+    instagram: { icon: '◉', name: 'Instagram', color: '#E1306C' },
+    github: { icon: '◉', name: 'GitHub', color: '#333333' }
   },
 
   // Validation rules
