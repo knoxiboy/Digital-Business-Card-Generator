@@ -23,15 +23,20 @@ const ExportManager = {
       const cardPreview = document.getElementById('cardPreview');
       const cardData = FormHandler.getFormData();
 
+      // Get the computed background style
+      const computedStyle = window.getComputedStyle(cardPreview);
+      const originalBackground = computedStyle.background;
+
       // Use html2canvas to capture card
       const canvas = await html2canvas(cardPreview, {
         scale: 3,
-        backgroundColor: '#000000',
+        backgroundColor: null,
         useCORS: true,
         allowTaint: true,
         logging: false,
         imageTimeout: 0,
-        removeContainer: true
+        removeContainer: true,
+        foreignObjectRendering: false
       });
 
       // Create download link
@@ -68,12 +73,13 @@ const ExportManager = {
       // Use html2canvas to capture card
       const canvas = await html2canvas(cardPreview, {
         scale: 3,
-        backgroundColor: '#000000',
+        backgroundColor: null,
         useCORS: true,
         allowTaint: true,
         logging: false,
         imageTimeout: 0,
-        removeContainer: true
+        removeContainer: true,
+        foreignObjectRendering: false
       });
 
       // Create PDF
